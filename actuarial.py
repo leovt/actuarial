@@ -93,4 +93,6 @@ def project(record):
 
 projections = contracts.apply(project, 'columns').tolist()
 projection = pandas.concat(projections)
+projection['SumInsured'] = projection['ContractNo'].map(contracts.set_index('ContractNo')['SumInsured'])
+projection['DeathClaim'] = projection['SumInsured'] * projection['Deaths']
 print(projection)
